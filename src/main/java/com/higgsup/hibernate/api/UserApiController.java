@@ -1,7 +1,10 @@
 package com.higgsup.hibernate.api;
 
+import com.higgsup.hibernate.entity.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -12,7 +15,7 @@ public class UserApiController {
         return ResponseEntity.ok("OK");
     }
 
-    @RequestMapping(value = "/detail", method = RequestMethod.POST, produces = "application/json")
+    @PostMapping("/detail")
     public ResponseEntity<String> postUserInfo(){
         return ResponseEntity.ok("OK");
     }
@@ -29,6 +32,12 @@ public class UserApiController {
 
     @RequestMapping(name = "/detail", method = RequestMethod.OPTIONS)
     public ResponseEntity<String> optionsUserInfo(){
+        return ResponseEntity.ok("OK");
+    }
+
+    @PostMapping(value="/login")
+    public ResponseEntity<String> login() {
+
         return ResponseEntity.ok("OK");
     }
 }

@@ -21,6 +21,8 @@
 </script>
 
 <c:if test="${pageContext.request.userPrincipal.name != null}">
+    <input type="hidden" name="${_csrf.parameterName}"
+           value="${_csrf.token}" />
     <h2>
         Welcome : ${pageContext.request.userPrincipal.name} | <a
             href="javascript:formSubmit()"> Logout</a>
