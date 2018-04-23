@@ -45,4 +45,14 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
+  <filter>
+    <filter-name>authenFilterDevices</filter-name>
+    <filter-class>com.higgsup.hibernate.config.CustomFilter
+    </filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>authenFilterDevices</filter-name>
+    <url-pattern>/api/*</url-pattern>
+  </filter-mapping>
+
 </web-app>

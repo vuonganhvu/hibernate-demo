@@ -2,10 +2,17 @@
 <b:beans xmlns="http://www.springframework.org/schema/security"
          xmlns:b="http://www.springframework.org/schema/beans"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:sec="http://www.springframework.org/schema/security"
+         xmlns:security="http://www.springframework.org/schema/security"
          xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
          http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
     <http auto-config="true">
-        <intercept-url pattern="/admin**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/api/**" access="permitAll"/>
+        <intercept-url pattern="/login**" access="permitAll"/>
+        <intercept-url pattern="/login?*" access="permitAll"/>
+        <intercept-url pattern="/**" access="isAuthenticated"/>
+        <!--<custom-filter ref="customFilter" after="BASIC_AUTH_FILTER" />-->
+        <!--<intercept-url pattern="/admin**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>-->
         <form-login login-page="/login"
                     default-target-url="/admin"
                     authentication-failure-url="/login?error"
@@ -15,7 +22,7 @@
         <logout logout-success-url="/login?logout"
                 logout-url="/j_spring_security_logout"/>
         <!-- enable csrf protection -->
-        <csrf/>
+        <csrf disabled="true"/>
     </http>
 
     <authentication-manager>
@@ -25,4 +32,6 @@
             </user-service>
         </authentication-provider>
     </authentication-manager>
+
+    <b:bean name="customFilter" class="com.higgsup.hibernate.config.CustomFilter"/>
 </b:beans>

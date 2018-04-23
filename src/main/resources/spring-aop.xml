@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <aop:aspectj-autoproxy />
+    <aop:config>
+        <aop:aspect id = "authenAspect" ref = "authenDevices">
+            <aop:pointcut id="authenDevicesPointCut"
+                          expression="execution(* com.higgsup.hibernate.api.*.*(..))" />
+            <!--<aop:before method="beforeAdvice" pointcut-ref="businessService"/>-->
+            <!--<aop:after method="afterAdvice" pointcut-ref="businessService" />-->
+            <!--<aop:after-returning method="afterRunningAdvice" returning="retVal" pointcut-ref="businessService"/>-->
+            <!--<aop:after-throwing method="afterThrowingAdvice" throwing="ex" pointcut-ref="businessService"/>-->
+            <aop:around method="aroundAdvice" pointcut-ref="authenDevicesPointCut" />
+        </aop:aspect>
+    </aop:config>
+    <bean name="authenDevices" class="com.higgsup.hibernate.config.AuthenDevices"/>
+</beans>
