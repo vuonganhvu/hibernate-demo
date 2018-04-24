@@ -10,7 +10,7 @@
         <intercept-url pattern="/api/**" access="permitAll"/>
         <intercept-url pattern="/login**" access="permitAll"/>
         <intercept-url pattern="/login?*" access="permitAll"/>
-        <intercept-url pattern="/**" access="isAuthenticated"/>
+        <intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN')"/>
         <!--<custom-filter ref="customFilter" after="BASIC_AUTH_FILTER" />-->
         <!--<intercept-url pattern="/admin**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>-->
         <form-login login-page="/login"
@@ -26,12 +26,17 @@
     </http>
 
     <authentication-manager>
-        <authentication-provider >
+        <authentication-provider>
             <user-service>
                 <user name="anhvv" password="{noop}123456" authorities="ROLE_USER,ROLE_ADMIN" />
             </user-service>
         </authentication-provider>
+        <authentication-provider user-service-ref="customUserServiceDetail">
+            <password-encoder ref="passwordEncoder"/>
+        </authentication-provider>
     </authentication-manager>
 
+    <b:bean name="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    <b:bean name="customUserServiceDetail" class="com.higgsup.hibernate.oauth.CustomUserDetailDAO"/>
     <b:bean name="customFilter" class="com.higgsup.hibernate.config.CustomFilter"/>
 </b:beans>
